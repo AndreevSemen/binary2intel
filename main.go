@@ -11,10 +11,6 @@ import (
 	"os"
 )
 
-const (
-	ROMWordSize = 1 * reader.Byte
-)
-
 var (
 	cmdLen = flag.Int("cmd-length", 4, "source command length")
 	cmdFmt = flag.String("fmt", ":01%04X00%02X%02X", "encoded command format")
