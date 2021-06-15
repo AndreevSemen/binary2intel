@@ -58,16 +58,19 @@ func (r *reader) Read(dst []byte) (int, error) {
 		if offset >= r.clen * Byte {
 			return 0, fmt.Errorf("line is too long: '%s'", row)
 		}
+		if sym == SpaceToken {
+			continue
+		}
+
 		dst[offset / Byte] <<= 1
 		switch sym {
-		case SpaceToken:
-			continue
 		case ZeroToken:
 		case OneToken:
 			dst[offset / Byte] += 1
 		default:
 			return 0, fmt.Errorf("unexpected symbol: %#U", sym)
 		}
+
 		offset++
 	}
 	if offset < r.clen * Byte {

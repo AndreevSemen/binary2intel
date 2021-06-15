@@ -14,7 +14,7 @@ import (
 var (
 	cmdLen = flag.Int("cmd-length", 4, "source command length")
 	cmdFmt = flag.String("fmt", ":01%04X00%02X%02X", "encoded command format")
-	cmdEof = flag.String("eof", ":0000000FF", "trailing command")
+	cmdEof = flag.String("eof", ":00000001FF", "trailing command")
 
 	src = flag.String("f", "code.bin", "file with code to translate")
 	dst = flag.String("o", "translated", "file for translated code prefix")
