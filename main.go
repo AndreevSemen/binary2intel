@@ -14,7 +14,7 @@ import (
 var (
 	cmdLen = flag.Int("cmd-length", 4, "source command length")
 	cmdFmt = flag.String("fmt", ":01%04X00%02X%02X", "encoded command format")
-	cmdEof = flag.String("eof", ":01000FF", "trailing command")
+	cmdEof = flag.String("eof", ":0000000FF", "trailing command")
 
 	src = flag.String("f", "code.bin", "file with code to translate")
 	dst = flag.String("o", "translated", "file for translated code prefix")
@@ -55,7 +55,9 @@ func main() {
 		}
 
 		for i := 0; i < *cmdLen; i++ {
-			if _, err = ws[i].Write(cmd[i:i+1]); err != nil {
+			a := len(cmd)-1-i
+			b := len(cmd)-i
+			if _, err = ws[i].Write(cmd[a:b]); err != nil {
 				log.Fatalf("write %s_%d.hex error: %s", *dst, i, err)
 			}
 		}
